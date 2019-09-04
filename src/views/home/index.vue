@@ -5,14 +5,12 @@
   />
   <!-- 频道列表 -->
   <van-tabs animated>
-  <van-tab v-for="index in 8" :title="'标签'" :key='index'>
-    内容 {{ index }}
+  <van-tab v-for="(item,index) in channelList" :title="item.name" :key='index'>
     <!-- 列表 -->
     <van-list
-        v-model="loading"
+        :loading="loading"
         :finished="finished"
         finished-text="没有更多了"
-        @load="onLoad"
       >
         <van-cell
           v-for="item in list"
@@ -26,32 +24,33 @@
 </template>
 
 <script>
+import { channel, articlesList } from '../../api/user'
 export default {
   data () {
     return {
-      list: [],
+      channelList:[],
+      list: [1,2],
       loading: false,
-      finished: false
+      finished: false,
+      page:{
+        page:1,
+        per_page:10
+      }
     }
   },
 
   methods: {
-    onLoad () {
-      // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1)
-        }
-        // 加载状态结束
-        this.loading = false
-
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true
-        }
-      }, 500)
-    }
+   
+  },
+ async created() {
+    //获取频道列表
+    let p = await channel();
+    this.channelList = p.channels
+    // 获取频道列表
+    let w = await articlesList(this.page)
+    console.log(w)
   }
+
 }
 </script>
 

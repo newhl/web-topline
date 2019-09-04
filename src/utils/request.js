@@ -20,7 +20,7 @@ instance.defaults.transformResponse = [function (data) {
 // 添加一个请求拦截器
 instance.interceptors.request.use(function (config) {
   // Do something before request is sent
-  console.log(config)
+  // console.log(config)
   if (store.state.user) {
     // 这是一个js文件不是一个组件 需要导入store
     // 有登录状态请求的时候 自动携带token
