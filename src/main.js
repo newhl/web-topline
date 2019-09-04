@@ -12,10 +12,10 @@ import './styles/index.css'
 Vue.use(Vant)
 Vue.use(VeeValidate, {
   // 文本框中触发验证的事件 默认是input
-  events:''
+  events: ''
 })
 // 配置中文
-Validator.localize('zhCN', zhCN);
+Validator.localize('zhCN', zhCN)
 Vue.config.productionTip = false
 
 new Vue({

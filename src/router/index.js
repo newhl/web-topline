@@ -1,15 +1,42 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Tabbar from '../views/Tabbar.vue'
+import Home from '../views/home/index.vue'
+import Qa from '../views/qa/index.vue'
+import Video from '../views/video/index.vue'
+import User from '../views/user/index.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: Home
-    // },
+    {
+      path: '/',
+      // name: 'tabbar',   // 当有默路径的时候 不需要name
+      component: Tabbar,
+      children: [
+        {
+          name: 'home',
+          path: '',
+          component: Home
+        },
+        {
+          path: '/qa',
+          name: 'qa',
+          component: Qa
+        },
+        {
+          path: '/video',
+          name: 'video',
+          component: Video
+        },
+        {
+          path: '/user',
+          name: 'user',
+          component: User
+        }
+      ]
+    },
     {
       path: '/login',
       name: 'login',
