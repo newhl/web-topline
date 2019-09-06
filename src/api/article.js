@@ -1,7 +1,7 @@
 import request from '../utils/request'
 
-/**获取文章列表 (登录或者不登录)
- * @params{*} 参数 
+/** 获取文章列表 (登录或者不登录)
+ * @params{*} 参数
  */
 
 export const getArticles = ({
