@@ -108,6 +108,7 @@ export default {
     },
     // 点击子组件中的我的频道  把当前点击的index传给父组件
    async handleMyChannelItem(index, channelId) {
+        // 在完成状态下 把当前频道的索引传到父元素
         if( !this.isEdit ){
             this.$emit('activeChange', index)
             return
@@ -129,6 +130,19 @@ export default {
     },
     // 点击推荐频道的时候
    async handleChannelItem(item) {
+     // 给channels(我的频道列表)动态添加的成员也是响应式的用 this.$set这个方法
+      this.$set(item, 'timestamp', null)
+      this.$set(item, 'articles', [])
+      this.$set(item, 'loading', false)
+      this.$set(item, 'finished', false)
+      this.$set(item, 'pullLoading', false)
+      // channel.timestamp = null
+      // channel.articles = []
+      // // 上拉加载
+      // channel.loading = false
+      // channel.finished = false
+      // // 下拉加载
+      // channel.pullLoading = false
      // 把点击的推荐频道添加到我的频道列表中
      this.channelList.push(item)
      // 2.判断是否登录
