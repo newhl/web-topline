@@ -1,6 +1,10 @@
 .van-nav-bar {
   background-color: #3e9df8;
 }
-.van-nav-bar .van-nav-bar__title {
+.van-nav-bar .van-nav-bar__title,
+.van-nav-bar .van-nav-bar__text {
   color: #ffffff;
+}
+.van-nav-bar .van-icon-arrow-left {
+  color: #fff;
 }

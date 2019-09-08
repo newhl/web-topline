@@ -84,8 +84,8 @@ export default {
       activeIndex: 0,
       successText: '',
       showChannelEdit: false,
-      showMoreAction:false,
-      currentArticle:null
+      showMoreAction: false,
+      currentArticle: null
     }
   },
   // 注册组件
@@ -166,17 +166,17 @@ export default {
       }
     },
     // 子组件穿过来的频道索引和父组件的频道索引相等,
-    handleChange(index) {
+    handleChange (index) {
       this.activeIndex = index
       this.showChannelEdit = false
     },
     // 将父组件上的文章的对象传到子组件
-    handleAction(item) {
+    handleAction (item) {
       this.showMoreAction = true
       this.currentArticle = item
     },
     // 子组件不感兴趣操作成功将结果传给父组件
-    handleSuccess() {
+    handleSuccess () {
       // 将文章更多操作弹出层关闭
       this.showMoreAction = false
       // 去掉文章的当前数据
@@ -184,7 +184,7 @@ export default {
       // Findindex() 查找满足第一个条件的元素的索引
       const articles = this.currentArticle.articles
       const index = articles.findIndex((item) => {
-        return item.art_id = this.currentArticle.art_id
+        return item.art_id === this.currentArticle.art_id
       })
       articles.splice(index, 1)
     }

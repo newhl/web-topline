@@ -23,14 +23,14 @@ export const deleteChannel = (id) => {
 
 // 添加用户指定的频道
 // id频道的id  seq当前项的序号
-export const addChannel = (id,seq) => {
+export const addChannel = (id, seq) => {
   return request.patch('/app/v1_0/user/channels', {
-    channels:[
+    channels: [
       {
         id,
         seq
       }
     ]
-   
+
   })
 }
