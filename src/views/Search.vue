@@ -36,6 +36,8 @@
 </template>
 
 <script>
+// 引入函数防抖
+import _ from 'lodash'
 import { getSuggestion, gethistoricalRecords } from '../api/search'
 import * as storageTools from '../utils/localStorage'
 import { mapState } from 'vuex'
@@ -90,17 +92,17 @@ export default {
     // 取消搜索
     onCancel () {},
     // 在文本框中输入内容过程中的消息提示
-    async handleInput () {
-      if (this.value.length === 0) {
-        return
-      }
-      try {
-        const data = await getSuggestion(this.value)
-        this.suggestionList = data.options
-      } catch (err) {
-        console.log(err)
-      }
-    },
+    handleInput: _.debounce(async function () {
+        if (this.value.length === 0) {
+          return
+        }
+        try {
+          const data = await getSuggestion(this.value)
+          this.suggestionList = data.options
+        } catch (err) {
+          console.log(err)
+        }
+      }, 300),
     // 删除历史记录
     handleDelete (index) {
       this.histories.splice(index, 1)

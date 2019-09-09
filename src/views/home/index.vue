@@ -19,6 +19,7 @@
         @load="onLoad"
       >
         <van-cell
+          @click="$router.push({name:'detail', params:{id:item.art_id.toString()}})"
           v-for="item in currentChannel.articles"
           :key="item.art_id.toString()"
           :title="item.title"
@@ -47,7 +48,7 @@
             <span>{{item.comm_count}}评论</span>&nbsp;
             <span>{{item.pubdate | fmDate }}</span>&nbsp;
             <!-- 当点击当前按钮时把当前的文章对象传给子组件 -->
-            <van-icon name="cross" class="close" @click="handleAction(item)"/>
+            <van-icon name="cross" class="close" @click.stop="handleAction(item)"/>
           </p>
         </div>
         </van-cell>

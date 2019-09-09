@@ -38,3 +38,24 @@ export const reportArticle = ({
     type
   })
 }
+
+//获取文章详情,id是文章的id
+export const getArticle = (id) => {
+  return request.get(`/app/v1_0/articles/${id}`)
+}
+
+// 对文章点赞
+export const likeAction = (id) => {
+  return request.post('/app/v1_0/article/likings', {
+    target:id
+  })
+}
+// 对文章取消点赞
+export const unLikeAction = (id) => {
+  return request.delete(`/app/v1_0/article/likings/${id}`)
+}
+
+// 取消对文章的不喜欢 id是文章的id
+export const unDislikeAction = (id) => {
+  return request.delete(`/app/v1_0/article/dislikes/${id}`)
+}
