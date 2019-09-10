@@ -31,6 +31,9 @@ export default {
         // 点击关注按钮  执行关注操作
     async handleFollow() {
             // 判断是否登录
+            if(!this.$checkLogin()){
+              return
+            }
             this.loading = true
             try{
              // 判断是否已经关注

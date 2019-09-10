@@ -27,6 +27,10 @@ export default {
         async  hanldLike() {
             try{
             // 判断是否登录 没有登录不可以点赞
+            if(!this.$checkLogin()){
+                // 没登录不能执以下操作
+                return
+            }
 
             // 判断是否已经点赞
             if(this.article.attitude === 1){

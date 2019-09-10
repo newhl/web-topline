@@ -57,7 +57,7 @@
   </van-tab>
 </van-tabs>
 <!-- 弹出频道管理 -->
-<channel-edit @activeChange="handleChange" :active="activeIndex" :channelList="channelList" v-model="showChannelEdit"></channel-edit>
+<channel-edit @last="handleLast" @activeChange="handleChange" :active="activeIndex" :channelList="channelList" v-model="showChannelEdit"></channel-edit>
 <!-- 弹出文章更多的操作 -->
 <!-- 如果currentArticle的值为null, 不显示此组件 -->
 <more-action v-if="currentArticle"
@@ -102,6 +102,10 @@ export default {
     }
   },
   methods: {
+    // 当频道管理删除的是,,激活索引数组中最后一项
+    handleLast() {
+      this.activeIndex--
+    },
     // 加载频道列表
     async loadChannels () {
       try {
@@ -192,7 +196,15 @@ export default {
   },
   created () {
     this.loadChannels()
-  }
+  },
+  // 在keep-alive缓存的组件被激活时触发
+  // activated () {
+  //   console.log('activated')
+  // },
+  // //keep-alive缓存的组件停用时调用 
+  // deactivated () {
+  //   console.log('deactivated')
+  // }
 
 }
 </script>

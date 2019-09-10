@@ -85,8 +85,12 @@ export default {
         // 登录成功之把token存放到 store 和本地 存储中
         // this.$store.commit('setUser', data)
         this.setUser(data)
+        // 获取url上的查询字符串 redirect
+        // 如果获取到了redirect 跳转到 redirect 
+        // 如果没有获取到redirect 跳转到首页
+        this.$router.push(this.$route.query.redirect || '/')
+
         this.$toast.success('登录成功')
-        this.$router.push('/')
       } catch (err) {
         this.$toast.fail('登录失败')
       }

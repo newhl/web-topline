@@ -117,6 +117,10 @@ export default {
         this.$emit('activeChange', index)
         return
       }
+      // 判断当前激活的索引项,是否是数组中的最后一项
+      if( this.active === this.channelList.length - 1){
+        this.$emit('last')
+      }
       // 2. 把点击的频道从我的频道列表中删除
       this.channelList.splice(index, 1)
       // 2.2 判断是否登录了

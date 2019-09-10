@@ -1,6 +1,7 @@
 import axios from 'axios'
 import JSONbig from 'json-bigint'
 import store from '../store/index'
+import router from '../router'
 
 const instance = axios.create({
 
@@ -37,8 +38,44 @@ instance.interceptors.response.use(function (response) {
   // Do something with response data
 
   return response.data.data || response.data
-}, function (error) {
+}, async function (error) {
   // Do something with response error
+  // console.log(error)
+  // 判断状态码是否是401 如果是401 
+  if(error.response.status === 401){
+    //首先拿到refresh_token
+    const refreshToken = store.state.user.refresh_token
+    try{
+      const response = await axios({
+        method:'put',
+        url:'http://ttapi.research.itcast.cn/app/v1_0/authorizations',
+        headers:{
+          Authorization:`Bearer ${refreshToken}`
+        }
+      })
+      // 新的两个小时的token
+      const token = response.data.data.token
+      // 将新的token存储到Vuex中
+      store.commmit('setUser', {
+        token:token,
+        refresh_token:refreshToken
+      })
+      // 重新发送上一次的401请求
+      return instance(error.config)
+
+    }catch (err){
+      // 跳转到首页
+      // 如果refresh_token到期
+      // router.push('/login')
+      router.push({
+        path:'/login',
+        query:{
+          redirect:router.currentRoute.fullPath
+        }
+      })
+    }
+  }
+  // 如果是401发送refresh_token交换新的token
   return Promise.reject(error)
 })
 
