@@ -20,7 +20,7 @@
         <p>{{item.content}}</p>
         <p>
             <span>{{item.pubdate | fmDate}}</span>&nbsp;
-            <span @click="handleShowReplyList">回复{{item.reply_count}}</span>
+            <span @click="handleShowReplyList(item)">回复{{item.reply_count}}</span>
         </p>
     </div>
     </van-cell>
@@ -29,6 +29,7 @@
 
 <script>
 import { getComments } from '../../../api/comment'
+import eventHub from '../../../utils/eventHub'
 export default {
   name:'Commentlist',
   //isARticle 是否是文章
@@ -43,7 +44,7 @@ export default {
       limit:10
     };
   },
-   methods: {
+  methods: {
   async onLoad() {
       try{
         const data = await getComments({
@@ -66,10 +67,20 @@ export default {
       
     },
     // 控制评论回复弹层的显示
-    handleShowReplyList() {
+    handleShowReplyList(item) {
       this.$store.commit('setShowReplyList', true)
+      this.$store.commit('setCrrrentComment', item)
     }
   },
+  created() {
+    eventHub.$on('sendSuccess', (obj) => {
+      // obj 有两个评论
+      if( this.isArticle === obj.isArticle){
+        this.list.unshift(obj.comment)
+      }
+    })
+  }
+
 };
 </script>
 

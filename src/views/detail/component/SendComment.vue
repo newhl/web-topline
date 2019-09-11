@@ -16,8 +16,9 @@
 
 <script>
 import { sendComment } from '../../../api/comment'
+import eventHub from '../../../utils/eventHub'
 export default {
-    props:['isArticle','target'],
+    props:['isArticle','target','art_id'],
     data() {
         return {
             content:''
@@ -36,7 +37,13 @@ export default {
           try{
             const data = await sendComment({
                 target:this.target,
-                content:this.content
+                content:this.content,
+                art_id:this.art_id
+            })
+            // 触发事件
+            eventHub.$emit('sendSuccess', {
+              comment:data.new_obj,
+              isArticle:this.isArticle
             })
             this.content = ''
           }catch (err) {
